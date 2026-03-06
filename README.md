@@ -43,7 +43,8 @@ python letterboxd_watchtime.py --delay 0.3
 ```bash
 python letterboxd_watchtime.py hugosachah --delay 0.1
 ```
-## Example output
+
+### Example output
 ```
 Processing 83 movies, this may take a while...
 Analyzing movies: 100%|██████████████████████| 83/83 [00:44<00:00,  1.85movie/s]
@@ -51,10 +52,16 @@ Time needed to watch all the movies: 6 days, 22 hours and 54 minutes
 Average time per movie: 2 hours, 0 minutes and 39 seconds
 ```
 
-## Demo
+### Demo
 <p align="center">
   <img src="demo.gif" width="700">
 </p>
+
+## Web Version
+A web version of this tool is available at: [https://letterboxd-watchtime.streamlit.app/](https://letterboxd-watchtime.streamlit.app/)
+
+## Disclaimer
+
 
 ## Disclaimer
 This project is an unofficial utility and is not affiliated with Letterboxd.
