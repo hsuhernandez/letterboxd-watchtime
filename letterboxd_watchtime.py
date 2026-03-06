@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Resumen de watchlist para Letterboxd.
+Letterboxd Watchlist Summary.
 
-Requiere:
+Requirements:
     pip install requests beautifulsoup4 tqdm
 """
 
@@ -203,7 +203,7 @@ def fetch_watchlist_via_rss(session: requests.Session, username: str) -> list[Fi
     url = f"{BASE_URL}/{username}/{WATCHLIST_PATH}/rss/"
     resp = session.get(url, timeout=30)
     if resp.status_code in {401, 403, 404}:
-        print(f"[i] No se pudo acceder al feed RSS (HTTP {resp.status_code}). Continuando sin él.")
+        print(f"[i] Could not access the RSS feed (HTTP {resp.status_code}). Continuing without it.")
         return []
     resp.raise_for_status()
     soup = BeautifulSoup(resp.text, "xml")
@@ -231,17 +231,17 @@ def fetch_watchlist(session: requests.Session, username: str) -> list[FilmEntry]
             url = f"{url}page/{page}/"
         resp = session.get(url, timeout=30)
         if resp.status_code == 404:
-            raise ValueError("Usuario inexistente o watchlist privada.")
+            raise ValueError("User does not exist or watchlist is private.")
         resp.raise_for_status()
         soup = BeautifulSoup(resp.text, "html.parser")
         page_films = extract_films_from_soup(soup)
         if not page_films:
             if page == 1:
                 if watchlist_looks_private(soup):
-                    raise ValueError("La watchlist parece ser privada o requiere sesión.")
+                    raise ValueError("The watchlist appears to be private or requires login.")
                 fallback = fetch_watchlist_via_rss(session, username)
                 if fallback:
-                    print("[i] No se detectaron pósters en HTML, usando el feed RSS como respaldo.")
+                    print("[i] No posters detected in HTML, using the RSS feed as a fallback.")
                     return fallback
             break
         for film in page_films:
@@ -310,6 +310,9 @@ def format_duration_hms(total_seconds: int) -> str:
 
 
 def format_duration_days(total_minutes: int) -> str:
+    if total_minutes < 24 * 60:
+        hours, minutes = divmod(total_minutes, 60)
+        return f"{hours} hours and {minutes} minutes"
     days, remainder = divmod(total_minutes, 24 * 60)
     hours, minutes = divmod(remainder, 60)
     return f"{days} days, {hours} hours and {minutes} minutes"
@@ -327,6 +330,7 @@ def print_summary(films: list[FilmEntry]) -> None:
 
     print(f"Time needed to watch all the movies: {format_duration_days(total_minutes)}")
     print(f"Average time per movie: {format_duration_hms(int(average_seconds))}")
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Summary of a Letterboxd watchlist.")
