@@ -61,9 +61,6 @@ Average time per movie: 2 hours, 0 minutes and 39 seconds
 A web version of this tool is available at: [https://letterboxd-watchtime.streamlit.app/](https://letterboxd-watchtime.streamlit.app/)
 
 ## Disclaimer
-
-
-## Disclaimer
 This project is an unofficial utility and is not affiliated with Letterboxd.
 
 © 2026 Hugo Sacha Uriel Hernández
