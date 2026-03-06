@@ -65,3 +65,5 @@ A web version of this tool is available at: [https://letterboxd-watchtime.stream
 
 ## Disclaimer
 This project is an unofficial utility and is not affiliated with Letterboxd.
+
+© 2026 Hugo Sacha Uriel Hernández
